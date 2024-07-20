@@ -54,6 +54,8 @@ const page = () => {
           const res = await axios.get(
             `/api/check-username-unique?username=${username}`
           );
+          console.log(res, "check username response");
+
           setUsernameMessage(res.data.message);
         } catch (error) {
           const axiosError = error as AxiosError<ApiResponse>;
@@ -68,9 +70,10 @@ const page = () => {
     checkUsernameUnique();
   }, [username]);
 
+  // ==============================================================
   const onSubmit = async (data: z.infer<typeof signUpSchema>) => {
     setIsSubmitting(true);
-    console.log(data, "signup data");
+    // console.log(data, "signup data");
 
     try {
       const res = await axios.post<ApiResponse>("/api/sign-up", data);
@@ -78,6 +81,7 @@ const page = () => {
         title: "Success",
         description: res.data.message,
       });
+      // redirect to verify user page
       router.replace(`/verify/${username}`);
       setIsSubmitting(false);
     } catch (error) {
@@ -94,17 +98,17 @@ const page = () => {
   };
   // ==========================================================
   return (
-    <div className="flex justify-center items-center min-h-screen bg-teal-100">
-      <div className="w-full max-w-md p-8 space-y-8 bg-white rounded-lg shadow-md">
+    <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-teal-300 to-sky-900">
+      <div className="w-full max-w-md p-5 space-y-3 bg-white rounded-md shadow-md">
         <div className="text-center">
           <h1 className="text-4xl font-extrabold tracking-tight lg:text-5xl mb-6">
             Anonimo app
           </h1>
-          <p className="mb-4">sign up</p>
+          <p className="mb-4">Create an account to start getting messages</p>
         </div>
         {/* form =============================== */}
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3">
             <FormField
               name="username"
               control={form.control}
@@ -167,7 +171,12 @@ const page = () => {
                 </FormItem>
               )}
             />
-            <Button type="submit" disabled={isSubmitting} className="w-full">
+            <Button
+              type="submit"
+              disabled={isSubmitting}
+              variant={"custom1"}
+              className="w-full"
+            >
               {isSubmitting ? (
                 <>
                   <Loader className="mr-2 h-4 w-4 animate-spin" /> Submitting
