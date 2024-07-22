@@ -15,7 +15,7 @@ const Navbar = () => {
       <div className="mx-auto flex flex-row justify-between items-center">
         <a
           className="text-2xl md:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-br from-teal-500 to-sky-900"
-          href="#"
+          href="/"
         >
           Anonimo
         </a>

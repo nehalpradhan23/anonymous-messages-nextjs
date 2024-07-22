@@ -22,8 +22,8 @@ import { useToast } from "@/components/ui/use-toast";
 import { ApiResponse } from "@/types/ApiResponse";
 
 type MessageCardProps = {
-  message: Message;
-  onMessageDelete: (messageId: string | unknown) => void;
+  message: Message | any;
+  onMessageDelete: (messageId: string | any) => void;
 };
 
 export function MessageCard({ message, onMessageDelete }: MessageCardProps) {
