@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import axios, { AxiosError } from "axios";
 import dayjs from "dayjs";
-import { X } from "lucide-react";
+import { Trash, X } from "lucide-react";
 import { Message } from "@/model/User";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
@@ -51,38 +51,76 @@ export function MessageCard({ message, onMessageDelete }: MessageCardProps) {
 
   // =====================================================
   return (
-    <Card className="card-bordered">
-      <CardHeader>
-        <div className="flex justify-between items-center">
-          <CardTitle>{message.content}</CardTitle>
-          <AlertDialog>
-            <AlertDialogTrigger asChild>
-              <Button variant="destructive">
-                <X className="w-5 h-5" />
-              </Button>
-            </AlertDialogTrigger>
-            <AlertDialogContent>
-              <AlertDialogHeader>
-                <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-                <AlertDialogDescription>
-                  This action cannot be undone. This will permanently delete
-                  this message.
-                </AlertDialogDescription>
-              </AlertDialogHeader>
-              <AlertDialogFooter>
-                <AlertDialogCancel>Cancel</AlertDialogCancel>
-                <AlertDialogAction onClick={handleDeleteConfirm}>
-                  Continue
-                </AlertDialogAction>
-              </AlertDialogFooter>
-            </AlertDialogContent>
-          </AlertDialog>
+    <>
+      <div className="flex bg-gray-100 w-full border-black border p-4 rounded-md gap-4">
+        <div className="overflow-hidden flex-1 gap-3 flex flex-col">
+          <div className="w-full overflow-scroll max-h-14">
+            {message.content}
+          </div>
+          <div className="text-xs text-gray-500">
+            {dayjs(message.createdAt).format("MMM D, YYYY h:mm A")}
+          </div>
         </div>
-        <div className="text-sm">
-          {dayjs(message.createdAt).format("MMM D, YYYY h:mm A")}
-        </div>
-      </CardHeader>
-      <CardContent></CardContent>
-    </Card>
+        {/* delete card btn */}
+        <AlertDialog>
+          <AlertDialogTrigger asChild>
+            <Button
+              className="border-red-500 border hover:bg-red-500"
+              variant={"secondary"}
+            >
+              <Trash className="w-5 h-5" />
+            </Button>
+          </AlertDialogTrigger>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+              <AlertDialogDescription>
+                This action cannot be undone. This will permanently delete this
+                message.
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel>Cancel</AlertDialogCancel>
+              <AlertDialogAction onClick={handleDeleteConfirm}>
+                Continue
+              </AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
+      </div>
+      {/* <Card className="card-bordered border-black">
+        <CardHeader>
+          <div className="flex justify-between items-center">
+            <CardTitle className="line-clamp-2">{message.content}</CardTitle>
+            <AlertDialog>
+              <AlertDialogTrigger asChild>
+                <Button className="border-red-500 border" variant={"secondary"}>
+                  <Trash className="w-5 h-5" />
+                </Button>
+              </AlertDialogTrigger>
+              <AlertDialogContent>
+                <AlertDialogHeader>
+                  <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                  <AlertDialogDescription>
+                    This action cannot be undone. This will permanently delete
+                    this message.
+                  </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                  <AlertDialogCancel>Cancel</AlertDialogCancel>
+                  <AlertDialogAction onClick={handleDeleteConfirm}>
+                    Continue
+                  </AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
+          </div>
+          <div className="text-sm">
+            {dayjs(message.createdAt).format("MMM D, YYYY h:mm A")}
+          </div>
+        </CardHeader>
+        <CardContent></CardContent>
+      </Card> */}
+    </>
   );
 }

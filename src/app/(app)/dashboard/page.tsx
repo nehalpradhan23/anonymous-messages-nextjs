@@ -101,7 +101,7 @@ const page = () => {
     if (!session || !session.user) return;
     fetchMessages();
     fetchAcceptMessage();
-  }, [setValue, fetchAcceptMessage, fetchMessages]);
+  }, [setValue, fetchAcceptMessage, fetchMessages, session]);
 
   // handle accept messages switch change ======================
   const handleSwitchChange = async () => {
@@ -158,7 +158,7 @@ const page = () => {
   };
   // ============================================
   return (
-    <div className="my-8 mx-4 md:mx-8 lg:mx-auto p-6 bg-white rounded w-full max-w-6xl">
+    <div className="my-8 lg:mx-auto bg-white rounded w-full max-w-6xl p-8">
       <h1 className="text-2xl md:text-4xl font-bold mb-4 text-center">
         User <span className="underline">{username}'s</span> Dashboard
       </h1>
@@ -215,15 +215,19 @@ const page = () => {
           <RefreshCcw className="h-4 w-4" />
         )}
       </Button>
-      <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-6">
+      {/* <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-6"> */}
+      <div className="mt-4 flex flex-col gap-5">
         {messages.length > 0 ? (
-          messages?.map((message, index) => (
-            <MessageCard
-              key={message?._id}
-              message={message}
-              onMessageDelete={handleDeleteMessage}
-            />
-          ))
+          <>
+            <p className="text-2xl font-bold">Inbox</p>
+            {messages?.map((message, index) => (
+              <MessageCard
+                key={message?._id}
+                message={message}
+                onMessageDelete={handleDeleteMessage}
+              />
+            ))}
+          </>
         ) : (
           <p>No messages to display.</p>
         )}
