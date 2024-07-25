@@ -160,7 +160,7 @@ const Dashboard = () => {
   return (
     <div className="my-8 lg:mx-auto bg-white rounded w-full max-w-6xl p-8">
       <h1 className="text-2xl md:text-4xl font-bold mb-4 text-center">
-        User <span className="underline">{username}'s</span> Dashboard
+        User <span className="underline">{username}&apos;s</span> Dashboard
       </h1>
 
       <div className="flex max-md:flex-col justify-between">

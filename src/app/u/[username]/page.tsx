@@ -70,7 +70,7 @@ export default function SendMessage() {
       </div>
       <Separator className="my-6" />
       <h1 className="text-4xl font-bold mb-6 text-center">
-        {username}'s Profile Link
+        {username}&apos;s Profile Link
       </h1>
       <h3 className="mb-2">
         Send your anonymous message to {username} from here
