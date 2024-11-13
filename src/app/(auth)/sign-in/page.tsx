@@ -16,12 +16,13 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Loader } from "lucide-react";
+import { Eye, EyeOff, Loader } from "lucide-react";
 import { signInSchema } from "@/schemas/signInSchema";
 import { signIn } from "next-auth/react";
 
 const SignIn = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const { toast } = useToast();
   const router = useRouter();
@@ -76,7 +77,10 @@ const SignIn = () => {
         </div>
         {/* form =============================== */}
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3">
+          <form
+            onSubmit={form.handleSubmit(onSubmit)}
+            className="space-y-3 relative"
+          >
             <FormField
               name="identifier"
               control={form.control}
@@ -97,8 +101,19 @@ const SignIn = () => {
                 <FormItem>
                   <FormLabel>Password</FormLabel>
                   <FormControl>
-                    <Input type="password" placeholder="password" {...field} />
+                    <Input
+                      type={showPassword ? "text" : "password"}
+                      placeholder="password"
+                      {...field}
+                    />
                   </FormControl>
+                  {/* show password button ---------------------- */}
+                  <div
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute bottom-[60px] right-2 cursor-pointer text-xl"
+                  >
+                    {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                  </div>
                   <FormMessage />
                 </FormItem>
               )}

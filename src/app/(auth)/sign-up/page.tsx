@@ -21,13 +21,14 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Loader } from "lucide-react";
+import { Eye, EyeOff, Loader } from "lucide-react";
 
 const SignUp = () => {
   const [username, setUsername] = useState("");
   const [usernameMessage, setUsernameMessage] = useState("");
   const [isCheckingUsername, setIsCheckingUsername] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   // debounce username value
   const debounced = useDebounceCallback(setUsername, 500);
@@ -108,7 +109,10 @@ const SignUp = () => {
         </div>
         {/* form =============================== */}
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3">
+          <form
+            onSubmit={form.handleSubmit(onSubmit)}
+            className="space-y-3 relative"
+          >
             <FormField
               name="username"
               control={form.control}
@@ -165,8 +169,20 @@ const SignUp = () => {
                 <FormItem>
                   <FormLabel>Password</FormLabel>
                   <FormControl>
-                    <Input type="password" placeholder="password" {...field} />
+                    <Input
+                      type={showPassword ? "text" : "password"}
+                      placeholder="password"
+                      {...field}
+                    />
                   </FormControl>
+                  {/* show password button ---------------------- */}
+                  <div
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute bottom-[60px] right-2 cursor-pointer text-xl"
+                  >
+                    {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                  </div>
+
                   <FormMessage />
                 </FormItem>
               )}
